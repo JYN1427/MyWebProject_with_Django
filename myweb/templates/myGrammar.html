@@ -1,0 +1,32 @@
+<!-- 记录语法用的 -->
+<!--
+    1. 关于{{}}的使用
+        比如试图层用render传入context字典：
+            context = {'name': 'jyn'}
+            html里直接用 <div>{{ name }}</div>
+    
+    2. 关于{% %}里面可以放语句。
+        比如：
+            {% for yearvar in yearlist %}
+            ....
+            {% endfor %}
+        (里面的yearlist本质其实也是{{yearlist}}, 是视图层传过来的数据库表)，比如：
+            mod = Stu.objects
+            mylist = mod.all()
+            context = {'yearlist': mylist}
+    
+    3. 前端用POST给后端传数据
+        比如：
+            详见edit.html
+    
+    4. html的单元格相关标签
+        <tr></tr>:  表格的一行
+        <tb></tb>： 表格的一个单元格
+        <th></th>： th取代td显示表格的标题行
+        比如：
+            详见index.html
+        
+-->
+<tr></tr>
+<tb></tb>
+<th></th>

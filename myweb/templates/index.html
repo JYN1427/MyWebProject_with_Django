@@ -1,0 +1,51 @@
+<!-- views.indexUsers 用户管理初始界面 -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>用户信息管理</title>
+        <script>
+            //自定义执行信息删除提示判断，参数uu是成功的删除url地址
+            function doDel(uu){
+                if(confirm("确定要删除吗？")){
+                    //网页跳转
+                    window.location=uu;
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <center>
+
+            {% include 'menu.html' %}
+
+            <h3>浏览用户信息</h3>
+            <table width="800" border="1">
+                <tr>
+                    <th>id号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>电话</th>
+                    <th>打卡时间</th>
+                    <th>操作</th>
+                </tr>
+                <!-- stulist 来自于：context = {"stulist":list} -->
+                {% for stu in stulist %}
+                    <tr>
+                        <td>{{ stu.id }}</td>
+                        <td>{{ stu.name }}</td>
+                        <td>{{ stu.age }}</td>
+                        <td>{{ stu.phone }}</td>
+                        <td>{{ stu.signup_time|date:'Y-m-d H:i:s' }}</td>
+                        <td>
+                            <a href="{% url 'editusers' stu.id %}">编辑</a>
+                            <a href="javascript:doDel('{% url 'delusers' stu.id %}');">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </center>
+    </body>
+</html>
