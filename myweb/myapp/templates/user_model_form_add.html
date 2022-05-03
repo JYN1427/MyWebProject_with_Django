@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block head_content %}
+    <link href="{% static 'plugins/datetimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> 新建用户 </h3>
+            </div>
+            <div class="panel-body">
+                <!-- novalidate是不需要浏览器给校验，我们这里直接用form.is_valid()的校验，然后提示field.error.0的报错 -->
+                <!-- 不写action就是默认给自己这个url提交post请求 -->
+                <form method="post"  novalidate>
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <!--label说的就是model里的verbose_name-->
+                        <div class="form-group">
+                            {% if field.label == '入职时间' %}
+                                <span class="glyphicon glyphicon-time"></span>
+                            {% endif %}
+                            <label>{{ field.label }}</label> 
+                            <span style="color: red;"> {{ field.errors.0 }}</span>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="btn btn-primary">提 交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block srcipt_content %}
+    <script src="{% static 'plugins/datetimepicker/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/datetimepicker/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js' %}"></script>
+    <script>
+        $(function(){
+            $("#start_id").datetimepicker({
+                format: 'yyyy-mm-dd',//显示格式
+                startView:2,
+                minView:2,
+                maxView :2,
+                language: 'zh-CN',
+                autoclose: 1,//选择后自动关闭
+                clearBtn:true,//清除按钮
+            });
+
+            $("#end_id").datetimepicker({
+                format: 'yyyy-mm-dd',//显示格式
+                startView:2,
+                minView:2,
+                maxView :2,
+                language: 'zh-CN',
+                autoclose: 1,//选择后自动关闭
+            });
+            $("#start_id").val(); //获取值
+            $("#start_id").val("2018-03-03"); //赋值
+            $("#start_id").val("");  //赋为空
+            
+        });
+    </script>
+{% endblock %}

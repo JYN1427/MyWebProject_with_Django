@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="="utf-8>
+    <title>MyTitle</title>
+</head>
+<body>
+    <h1>模板语法的学习</h1>
+    <div>所有名字：{{ names }}</div>
+    <div>按照下标：</div>
+    <div>{{ names.0 }}</div>
+    <div>{{ names.1 }}</div>
+    <div>{{ names.2 }}</div>
+
+    <hr>
+
+    <div>列表：
+    {% for name in names %}
+        <span style="color:blue;">{{ name }}</span>
+    {% endfor %}
+    </div>
+
+    <div>字典：</div>
+    <ul>
+        {% for k,v in mydict.items %}
+            <li> {{ k }}: {{ v }} </li>
+        {% endfor %}
+
+        {% for v in mydict.values %}
+            <li> {{ v }} </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <div>请求联通官网的接口，解析json为dict，展示内容：</div>
+    <ol>
+        {% for item in datas %}
+            <li> {{ item }} </li>
+        {% endfor %}
+    </ol>
+
+    <ol>
+        {% for item in datas %}
+            <li> {{ item.news_title }} </li>
+        {% endfor %}
+    </ol>
+
+
+
+</body>

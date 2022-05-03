@@ -1,0 +1,47 @@
+1. <div>
+  div标签是块级元素，相当于一个大盒子，其内容都占据一行，不会其他标签在一行显示。
+
+2. <span>
+  span标签是行内元素，相当于一个小盒子，会和其他标签元素在一行显示（块级元素除外）。
+
+3. <p>
+  div与p均独占一行的块元素标签，唯一区别:
+	p自带有一定margin-top和margin-bottom属性值，而div两个属性值为0，也就是两个p之间有一定间距，而div没有。
+	div上下没有间隔间距，而p有。
+  
+  所以文章分段用p比较多
+
+
+4. <ul> 标签定义无序列表。
+	与 <li> 标签一起使用
+
+5. <ol> 标签定义了一个有序列表. 列表排序以数字来显示。
+	与 <li> 标签一起使用
+
+6. <hr> 显示为一条水平线。
+	单独用。没有</hr>这种东西哦
+
+7. <table>:分为表头thead和表身tbody。其中,
+        <th>: 定义表格中的单元格。  (表头)
+        <tr>: 定义表格中的一行。    (表身)
+        <td>: 定义表格中的单元格。  (表身)
+
+    <!-- Table -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>密码</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for obj in queryset %}
+            <tr>
+                <th>{{ obj.id }}</th>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.password }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

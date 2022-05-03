@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<script>
+    //自定义执行信息删除提示判断，参数uu是成功的删除url地址
+    function doDel(uu){
+        if(confirm("确定要删除吗？")){
+            //网页跳转
+            window.location=uu;
+        }
+    }
+
+</script>
+    <div class="container">
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-success" href="{% url 'adddepart_by_ModelForm' %}">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建部门ModelForm
+            </a>
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                部门列表
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>部门编号</th>
+                    <th>部门名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+                    <tr>
+                        <th style="width: 200px;">{{ obj.id }}</th>
+                        <td>{{ obj.title }}</td>
+                        <td style="width: 150px;">
+                            <a class="btn btn-primary btn-xs" href="{% url 'editdepart_by_ModelForm' obj.id %}">编辑</a>
+                            <a class="btn btn-danger btn-xs" href="javascript:doDel('{% url 'deldepart' obj.id %}');">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
