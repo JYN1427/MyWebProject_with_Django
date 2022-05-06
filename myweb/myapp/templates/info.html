@@ -16,8 +16,8 @@
 		<h1>Error Page</h1>
 			<div class="error_content">
 				<span class="fa fa-frown-o"></span>
-				<h2>Sorry, Please try again !</h2>
-				<p>请求可能发生错误</p>
+                <h2>发生错误</h2>
+                <p>{{ reason }}</p>
                 <!--
 				<form action="{}" method="post">
 					<input class="serch" type="search" name="serch" placeholder="Search here" required="">
@@ -25,7 +25,13 @@
 					<div class="clear"> </div>
 				</form>
                 -->
-				<a class="b-home" href="{% url 'usersindex' %}">Back to Home</a>
+                {% if from == "depart" %}
+				<a class="b-home" href="{% url 'departindex' %}">回到部门管理页面</a>
+                {% elif from == "pretty" %}
+				<a class="b-home" href="{% url 'prettyindex' %}">回到号码管理页面</a>
+                {% else %}
+				<a class="b-home" href="{% url 'usersindex' %}">回到用户管理页面</a>
+                {% endif %}
 			</div>
 		<div class="footer">
             <p>—— By Ning</p>

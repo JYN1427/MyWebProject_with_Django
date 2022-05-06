@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<script>
+    //自定义执行信息删除提示判断，参数uu是成功的删除url地址
+    function doDel(uu){
+        if(confirm("确定要删除吗？")){
+            //网页跳转
+            window.location=uu;
+        }
+    }
+
+</script>
+    <div class="container">
+        <div style="margin-bottom: 10px" >
+            <a class="btn btn-success" href="{% url 'addpretty_by_ModelForm' %}">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建号码
+            </a>
+
+            <div class="col-lg-6" style="float: right;width: 300px;">
+                <form method="get">
+                    <div class="input-group">
+                        <!-- 为了能请求，需要input起一个name, button搞一个submit -->
+                        <input type="text" name="mobile_query" class="form-control" placeholder="通过号码搜索" value="{{ search_data }}">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                                <!--button给搞一个搜索图标-->
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          </button>
+                        </span>
+                      </div><!-- /input-group -->
+                </form>
+            </div><!-- /.col-lg-6 -->
+
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                号码列表
+                <span style="float: right;">第{{ now_page }}页</span>       
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>号码</th>
+                    <th>价格</th>
+                    <th>级别</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+                    <tr>
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.mobile }}</td>
+                        <td>{{ obj.price }}</td>
+                        <td>{{ obj.level }}</td>
+                        <td>{{ obj.status }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="{% url 'editpretty_by_ModelForm' obj.id %}">编辑</a>
+                            <a class="btn btn-danger btn-xs" href="javascript:doDel('{% url 'delpretty' obj.id %}');">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix">
+            <ul class="pagination">
+                {{ page_string }}
+                <li>
+                    <div style="float: left;margin-left: -1px" method="get">
+                        <input id="input_page"
+                               style="position: relative;float:left;display: inline-block;width: 80px;border-radius: 0;"
+                               type="text" class="form-control" placeholder="页码">
+                        <a href="" id="input_go">
+                            <button style="border-radius: 0" class="btn btn-default">跳转</button>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block srcipt_content %}
+    <script type="text/javascript">
+        input_page.onkeyup=function(){
+            input_go.setAttribute("href", "?mobile_query="+ "{{ search_data }}" + "&page=" + input_page.value); 
+        }
+    </script>
+{% endblock %}
